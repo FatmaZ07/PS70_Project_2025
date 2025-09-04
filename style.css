@@ -1,7 +1,7 @@
 body {
     font: 20px papyrus, monospace;
     line-height: 1.8;
-    color: #BC9CB0;
+    color: #606D5D;
     background-color: #88958d;
     padding-top: 0px !important;
   }
@@ -10,7 +10,8 @@ body {
   padding: 2% 10%;;
 }
 
-p {font-size: 16px; color: #606D5D;}
+p {font-size: 16px;
+}
 .margin {margin-bottom: 30px;}
 
 a {
