@@ -4,7 +4,14 @@
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/arduino.min.js"></script>
+
+<script>hljs.highlightAll();</script>
 
 <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #bc9cb0; color: #EEE7E8;">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
@@ -23,14 +30,53 @@
 <div class="textcontainer">
 <p class="margin">   </p>
 
-<h3>Week 4: Microcontroller Programming</h3>
+<h3>Assignment: **Microcontroller Programming with Kinetic Sculpture**</h3>
+<p class="margn">   </p>
+For this week's assignment, I decided to build on the previous week's assignment of creating a kinetic scultpure and combine it with microcontroller programming in arduino. I decided I wanted to control the speed of the motor with the potentiometer so the dragon could change speeds at a gradient. Surprisingly, the coding was the easy part; the actual sculpture had me contemplating dropping this class. Only took me 6 tries to get a smooth working sculpture. 
+<p class="margin">   </p>
+Here is my code in arduino below:
 
-<h4>[Do Something with an arduino]</h4>
+<pre>
+  <code class="arduino" style = "color: black; background-color: transparent;">
+    int potPin = 25; 
+    int potVal;
+    int motorPin = 33;
+    int motorVal;
 
+    const int freq = 5000;
+    const int resolution = 8;
 
+    void setup() {
+      // put your setup code here, to run once:
+      pinMode(potPin, INPUT);
+      pinMode(motorPin, OUTPUT);
+      ledcAttach(motorPin, freq, resolution);
+    }
 
+    void loop() {
+      // put your main code here, to run repeatedly:
+      potVal = analogRead(potPin);
+      motorVal = map(potVal, 0, 4095, 0, 255);
+      ledcWrite(motorPin, motorVal);
+    }
 
+  </code>
+</pre>
+<p class="margin">   </p>
+Below I've included a circuit diagram, a photo of the circuit setup, and a video of the sculpture in action. 
 
+<p class = "margin"></p>
+<image style = "width: 75%"src = "circuitry photo.jpeg" alt = "circuitry photo"> </image>
+<p class="margin">   </p>
+<image style = "width: 75%"src = "week4circuitdiagram.jpeg" alt = "circuitry diagram"> </image>
+<p class = "margin"></p>
+<p class = "margin"></p>
+<video style = "width: 75%"src = "microcontrollervideo.mp4" alt = "Kinetic Sculpture Microcontroller Programming" controls> </video>
+<p class = "margin"></p>
+ Heres an updated file for my dragon as of right now.
+<div class="flexrow">
+  <a id="btn" href="./kineticdragonmicrocontroller.f3d" download>Microcontroller Kinetic Dragon Fusion File
+  </a>
 </div>
 </xmp>
 </body>
