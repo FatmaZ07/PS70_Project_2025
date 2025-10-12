@@ -25,19 +25,20 @@
 
 <h4>Assignment 1: **Capactive Sensor**<h4>
 <p class = "margin"></p>
+During class my team got assigned rotation angle as our quantity to be measured. We decided we were going to use one plate fixed in place and another plate rotating along a circular platform's edge to measure the capacitance between the two plates as the rotation angle changes. First, we taped one plate to an pright small pice of wood and used clay to position it infront of a motor. Then we lasercut a small cam with a hole in the middle fitted perfectly to the motor's axle and used clay to stick the other plate to the edge of the circle. We hooked up the alligator clips to each plate and their respective wires and pins on the ESP32. Our code was simple; we just needed the motor to turn continously, so there was no need to play aroudn with the delay function. 
 <video style = "width: 75%"src = "capacitor1vid.mp4" alt = "Capacitor 1 Video" controls> </video>
 <p class = "margin"></p>
+<image style = "width: 75%"src = "capacitor1schematic.jpeg" alt = "Capacitor 1 schematic"> </image>
+<image style = "width: 75%"src = "capacitor 1 plots.png" alt = "Capacitor 1 points"> </image>
+<p class = "margin"></p>
+These are the quantities we measured at each angle. The x-axis is the angle, going from 0 degrees to 315 degrees. The y-axis is the capacitance measured. Clearly, its not a linear relationship but rather goes up and down. However, our plotted points arent the most accurate- intuitively, the capacitance is supposed to be at its lowest at 180 degrees, then increase steadily as the angle turns to 360/0 degrees and be aroudn 90000 Farads. That didn't happen, and its probably because of a systematic error in the sense that we hand-held the rotating plate at each point instead- we couldn't find any tape :(. So its likely human error that our points didnt act to what it shouldve been. 
 <h4>Assignment 2: **Use + Calibrate Another Sensor**</h4>
 
 <h4>Assignment 3: **CNC File**</h4>
 <p class="margin">   </p>
 My CNC milling stl file is simple- its just a rectangular block with geometric planes on top. 
-</div>
 <p class="margin">   </p>
   <a id="btn" href="./week5cncstlfile.stl" download>CNC STL File
- </a>
-</div>
-</div>
 </xmp>
 </body>
 
