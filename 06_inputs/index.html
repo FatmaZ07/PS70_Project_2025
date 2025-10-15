@@ -47,55 +47,55 @@ Below is a screen recording of the serial plotter as I held the I2S to my headph
 The following is the code that I used:
 <pre>
   <code class="arduino" style = "color: black; background-color: transparent;">
-    #include < ESP_I2S.h >
+    #include <ESP_I2S.h>
 
-    const int buff_size = 128;
-    int available_bytes, read_bytes;
-    uint8_t buffer[buff_size];
-    I2SClass I2S;
+const int buff_size = 128;
+int available_bytes, read_bytes;
+uint8_t buffer[buff_size];
+I2SClass I2S;
 
-    void setup() {
-      Serial.begin(115200);
-      I2S.setPins(5, 25, -1, 33, -1); //SCK, WS, SDOUT, SDIN, MCLK
-      if(!I2S.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO)){
-        Serial.println("Failed to initialized");
-        while(1){
-          Serial.println("Did not initialize");
-          delay(1000);
-        }
-      }
-      
-      // I2S.read();
-      // available_bytes = I2S.available();
-      // if(available_bytes < buff_size) {
-      //   read_bytes = I2S.readBytes(buffer, available_bytes);
-      // } else {
-      //   read_bytes = I2S.readBytes(buffer, buff_size);
-      // }
-      // I2S.write(buffer, read_bytes);
-      // I2S.end();
+void setup() {
+  Serial.begin(115200);
+  I2S.setPins(5, 25, -1, 33, -1); //SCK, WS, SDOUT, SDIN, MCLK
+  if(!I2S.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO)){
+    Serial.println("Failed to initialized");
+    while(1){
+      Serial.println("Did not initialize");
+      delay(1000);
     }
+  }
+  
+  // I2S.read();
+  // available_bytes = I2S.available();
+  // if(available_bytes < buff_size) {
+  //   read_bytes = I2S.readBytes(buffer, available_bytes);
+  // } else {
+  //   read_bytes = I2S.readBytes(buffer, buff_size);
+  // }
+  // I2S.write(buffer, read_bytes);
+  // I2S.end();
+}
 
-    void loop() {
-      while(I2S.available()){
-        int sample = I2S.read();
-        if((sample == -1) || sample == 0){
-          return;
-        }
-        sample >>= 14;
-        sample += 14000;
-        
-
-
-
-
-        Serial.print(100000);
-        Serial.print(" ");
-        Serial.print(-100000);
-        Serial.print(" ");
-        Serial.println(sample);
-      }
+void loop() {
+  while(I2S.available()){
+    int sample = I2S.read();
+    if((sample == -1) || sample == 0){
+      return;
     }
+    sample >>= 14;
+    sample += 14000;
+
+
+
+
+
+    Serial.print(100000);
+    Serial.print(" ");
+    Serial.print(-100000);
+    Serial.print(" ");
+    Serial.println(sample);
+  } 
+}
 
   </code>
 </pre>
