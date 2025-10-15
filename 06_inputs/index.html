@@ -35,7 +35,71 @@ During class my team got assigned rotation angle as our quantity to be measured.
 These are the quantities we measured at each angle. The x-axis is the angle, going from 0 degrees to 315 degrees. The y-axis is the capacitance measured. Clearly, its not a linear relationship but rather goes up and down. However, our plotted points arent the most accurate- intuitively, the capacitance is supposed to be at its lowest at 180 degrees, then increase steadily as the angle turns to 360/0 degrees and be aroudn 90000 Farads. That didn't happen, and its probably because of a systematic error in the sense that we hand-held the rotating plate at each point instead- we couldn't find any tape :(. So its likely human error that our points didnt act to what it shouldve been. 
 <p class="margin">   </p>
 <h4>Assignment 2: **Use + Calibrate Another Sensor**</h4>
+<p class="margin">   </p>
+For my second capacitor, I worked with the I2S microphone since that's probably what I'll be using in my final project. Originally, I was hoping to program the microphone to recognize certain curse words but then I realized that would take some heavy AI coding, a skill that I am nowhere near. So Bobby convinced me that just getting the mic to recognize sound was a good starting point. Originally I struggled alot with getting the serial plotter to show any data points; nothing was budging even though we used the oscilliscope (which largely remains a mystery to me but I got the basics down) and everything seemed to be in working order. Turns out the microphone itself was the problem lol. So after switching to another I2S and getting everything wired up (I also conveniently learned the purpose of a bitclock), I finally recieved data as shown through thr serial plotter; surprisingly the I2S was picking up every little thing I was saying! 
+<p class="margin">   </p>
+<image style = "width: 75%"src = "i2s.jpeg" alt = "I2S input device"> </image>
+<p class="margin">   </p>
+Below is a screen recording of the serial plotter as I held the I2S to my headphones and blasted Summer of 69 by Bryan Adams. 
+<p class="margin">   </p>
+<image style = "width: 75%"src = "i2s summerof69.mp4" alt = "I2S listening to Summer of 69"> </image>
+<p class = "margin"></p>
+The following is the code that I used:
+<pre>
+  <code class="arduino" style = "color: black; background-color: transparent;">
+    #include <ESP_I2S.h>
 
+    const int buff_size = 128;
+    int available_bytes, read_bytes;
+    uint8_t buffer[buff_size];
+    I2SClass I2S;
+
+    void setup() {
+      Serial.begin(115200);
+      I2S.setPins(5, 25, -1, 33, -1); //SCK, WS, SDOUT, SDIN, MCLK
+      if(!I2S.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO)){
+        Serial.println("Failed to initialized");
+        while(1){
+          Serial.println("Did not initialize");
+          delay(1000);
+        }
+      }
+      
+      // I2S.read();
+      // available_bytes = I2S.available();
+      // if(available_bytes < buff_size) {
+      //   read_bytes = I2S.readBytes(buffer, available_bytes);
+      // } else {
+      //   read_bytes = I2S.readBytes(buffer, buff_size);
+      // }
+      // I2S.write(buffer, read_bytes);
+      // I2S.end();
+    }
+
+    void loop() {
+      while(I2S.available()){
+        int sample = I2S.read();
+        if((sample == -1) || sample == 0){
+          return;
+        }
+        sample >>= 14;
+        sample += 14000;
+        
+
+
+
+
+        Serial.print(100000);
+        Serial.print(" ");
+        Serial.print(-100000);
+        Serial.print(" ");
+        Serial.println(sample);
+      }
+    }
+
+  </code>
+</pre>
+<p class="margin">   </p>
 <h4>Assignment 3: **CNC File**</h4>
 <p class="margin">   </p>
 My CNC milling stl file is simple- its just a rectangular block with geometric planes on top. 
